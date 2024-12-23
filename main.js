@@ -105,3 +105,32 @@ function createTable(){//táblagenerálós függvény
     }
 }
 createTable();//meghívjuk a függvényt
+
+const form = document.getElementById("form");//form elem bekérése id alapján
+form.addEventListener("submit",function(e){//eseménykezelő létrehozása
+    e.preventDefault();//Ez a rész megakadályozza, hogy az űrlap azonnal működésebe lépjen ahogy betölt az oldal
+
+    const country = document.getElementById("szarmazas");//html elem bekérése id alapján
+    const author1 = document.getElementById("szerzo1");//html elem bekérése id alapján
+    const work1 = document.getElementById("szerzo1mu");//html elem bekérése id alapján
+    const author2 = document.getElementById("szerzo2");//html elem bekérése id alapján
+    const work2 = document.getElementById("szerzo2mu");//html elem bekérése id alapján
+
+    const countryValue = country.value;//Ezeknek az elemeknek megnézzük az értékeit
+    const author1Value = author1.value;//Ezeknek az elemeknek megnézzük az értékeit
+    const work1Value = work1.value;//Ezeknek az elemeknek megnézzük az értékeit
+    const author2Value = author2.value;//Ezeknek az elemeknek megnézzük az értékeit
+    const work2Value = work2.value;//Ezeknek az elemeknek megnézzük az értékeit
+
+    const Element = {//Új objektum készítése
+        country: countryValue,//Az objektum tulajdonságának az értékének a megadása
+        author1: author1Value,//Az objektum tulajdonságának az értékének a megadása
+        work1: work1Value,//Az objektum tulajdonságának az értékének a megadása
+        author2:author2Value,//Az objektum tulajdonságának az értékének a megadása
+        work2:work2Value//Az objektum tulajdonságának az értékének a megadása
+    }
+
+    groteszkArray.push(Element);//Tömbhöz adás
+    tbody.innerHTML = "";//Kitöröljük a tbody tartalmát
+    createTable();//Meghívjuk a függvényt
+})
