@@ -133,6 +133,18 @@ form.addEventListener("submit",function(e){//eseménykezelő létrehozása
         valid = false;//és legyen a valid false
     }
 
+    if((author2.value === "" && work2.value !== "")||(author2.value !== "" && work2.value === "")){//Hogyha az egyik mezőbe van valami írva, de amásikba nem vagy a fordítottja
+        if(!author2.value){//Ha az aithor2-höz nincs semmi írva
+            simpleValidation(author2,"Minden műhöz tartozik szerző");//Akkor írja ki hozzá a hibaüzenetet
+            
+        }
+        if(!work2.value){//Ha a work2-höz nincs semmi írva
+            simpleValidation(work2,"Minden szerzőhöz  tartozik mű");//Akkor ahhoz írja ki a hibaüzenetet
+           
+        }
+        valid = false;//Ha bármelyik feltétel érvényesül automatikusan hamis lesz a valid
+    }
+
     if(valid){//Ha a valid = true, azaz mindehova van valami írva akkor létrehozza az objektumot
         const countryValue = country.value;//Ezeknek az elemeknek megnézzük az értékeit
         const author1Value = author1.value;//Ezeknek az elemeknek megnézzük az értékeit
@@ -150,6 +162,7 @@ form.addEventListener("submit",function(e){//eseménykezelő létrehozása
 
     groteszkArray.push(Element);//Tömbhöz adás
     tbody.innerHTML = "";//Kitöröljük a tbody tartalmát
+    Form.reset();//Az űrlapot nullázza le ha minden megfelelt
     createTable();//Meghívjuk a függvényt
 }
 })
