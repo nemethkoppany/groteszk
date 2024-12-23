@@ -102,8 +102,8 @@ function createTable(array){//táblagenerálós függvény paraméterrel
     }
 }
 createTable(groteszkArray);//meghívjuk a függvényt
+createForm();
 
-const form = document.getElementById("form");//form elem bekérése id alapján
 form.addEventListener("submit",function(e){//eseménykezelő létrehozása
     e.preventDefault();//Ez a rész megakadályozza, hogy az űrlap azonnal működésebe lépjen ahogy betölt az oldal
 
@@ -180,4 +180,51 @@ function complexValidation(author2,work2){//Az összetett validációt kiszervez
         valid = false;//Ha bármelyik feltétel érvényesül automatikusan hamis lesz a valid
     }
     return valid;//térjen vissza validdal
+}
+
+function createInputField(parent,innerHTML,nameID){
+    const div = document.createElement("div");
+    div.className = "field"
+
+    const label = document.createElement("label");
+    label.htmlFor = nameID;
+    label.innerHTML = innerHTML;
+
+    const input = document.createElement("input");
+    input.type = "text";
+    input.name = nameID;
+    input.id = nameID;
+
+    const errorDiv = document.createElement("div");
+    errorDiv.classList.add("error");
+
+    parent.appendChild(div);
+    div.appendChild(label);
+    div.appendChild(document.createElement("br"));
+    div.appendChild(input);
+    div.appendChild(document.createElement("br"));
+    div.appendChild(document.createElement("br"));
+    div.appendChild(errorDiv);
+    return div;
+}
+
+function createForm(){
+    const form = document.createElement("form");
+    form.id = "form";
+    document.body.appendChild(form);
+
+    form.appendChild(
+        createInputField(form, "2. szerző műve","szerzo2mu"),
+      
+        createInputField(form,"Származás: ", "szarmazas"),
+        createInputField(form,"1. szerző: ", "szerzo1"),
+        createInputField(form,"1.szerző műve:", "szerzo1mu"),
+    
+        createInputField(form,"2. szerző: ", "szerzo2"),
+    )
+
+    const button = document.createElement("button");
+    button.type = "submit";
+    button.innerHTML = "Hozzáadás";
+    form.appendChild(button);
 }
