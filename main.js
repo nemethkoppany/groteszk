@@ -116,12 +116,45 @@ form.addEventListener("submit",function(e){//eseménykezelő létrehozása
     const author2 = document.getElementById("szerzo2");//html elem bekérése id alapján
     const work2 = document.getElementById("szerzo2mu");//html elem bekérése id alapján
 
+    const Form = e.currentTarget;//Eltároljuk egy változóban azokat az elemeket amikről éppen szó van(a formon belül)
+    const errorClass = Form.querySelectorAll(".error");//Megnézzük, hogy melyiknek van error class-a
+    for(const error of errorClass){//Végigmegyünk ezeken az elemeken
+        error.innerHTML = "";//És lenullázzuk a tartalmát
+    }
+    let valid = true;//Megadjuk a valid értékét
+
     const countryValue = country.value;//Ezeknek az elemeknek megnézzük az értékeit
     const author1Value = author1.value;//Ezeknek az elemeknek megnézzük az értékeit
     const work1Value = work1.value;//Ezeknek az elemeknek megnézzük az értékeit
     const author2Value = author2.value;//Ezeknek az elemeknek megnézzük az értékeit
     const work2Value = work2.value;//Ezeknek az elemeknek megnézzük az értékeit
 
+    if(countryValue === ""){//Ha nincs semmi írva a nemzetiséghez
+        const parentElement = country.parentElement;//Bekérjük a parentElementjét a nemzetiségnek
+        const errorPlace = parentElement.querySelector(".error");//megkeressük az error class-al ellátott elemet
+        if(errorPlace != undefined){//Ha az errorPlace létezik, azaz van error classa-al ellátott elem(esetünkben div)
+            errorPlace.innerHTML = "A nemzetiség megadása kötelező"//Akkor adjon neki hibaüzenetet
+        }
+        valid = false;//És legyen a valid értéke false
+    }
+    if(author1Value === ""){//Ha nincs semmi írva a szerzőhöz
+        const parentElement = author1.parentElement;//Bekérjük a parentElementjét a szerzőnek
+        const errorPlace = parentElement.querySelector(".error");//megkeressük az error class-al ellátott elemet
+        if(errorPlace != undefined){//Ha az errorPlace létezik, azaz van error classa-al ellátott elem(esetünkben div)
+            errorPlace.innerHTML = "Az első szerző megadása kötelező"//Akkor adjon neki hibaüzenetet
+        }
+        valid = false;//És legyen a valid értéke false
+    }
+    if(work1Value === ""){//Ha nincs semmi írva a műhöz
+        const parentElement = work1.parentElement;//Bekérjük a parentElementjét a műnek
+        const errorPlace = parentElement.querySelector(".error");//megkeressük az error class-al ellátott elemet
+        if(errorPlace != undefined){//Ha az errorPlace létezik, azaz van error classa-al ellátott elem(esetünkben div)
+            errorPlace.innerHTML = "Az első mű  megadása kötelező"//Akkor adjon neki hibaüzenetet
+        }
+        valid = false;//És legyen a valid értéke false
+    }
+
+    if(valid){//Ha a valid = true, azaz mindehova van valami írva akkor létrehozza az objektumot
     const Element = {//Új objektum készítése
         country: countryValue,//Az objektum tulajdonságának az értékének a megadása
         author1: author1Value,//Az objektum tulajdonságának az értékének a megadása
@@ -133,4 +166,6 @@ form.addEventListener("submit",function(e){//eseménykezelő létrehozása
     groteszkArray.push(Element);//Tömbhöz adás
     tbody.innerHTML = "";//Kitöröljük a tbody tartalmát
     createTable();//Meghívjuk a függvényt
+}
 })
+
