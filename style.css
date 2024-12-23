@@ -1,0 +1,13 @@
+table thead th:nth-child(odd){
+    background-color: white;
+}
+table thead th:nth-child(even){
+    background-color: purple;
+}
+table, th, td{
+    border-collapse: collapse;
+    border: solid 1px black;
+}
+.error{
+    color: red;
+}
