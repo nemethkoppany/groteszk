@@ -53,21 +53,18 @@ colgroup.appendChild(col3);//Hozzárendeljük a colgrouphoz
 const thead = document.createElement("thead");//thead elelm létrehozása
 table.appendChild(thead);//Hozzárendeljük a table-höz
 
+
+function createHeader(){//Fejléc készítős függvény
 const thead_tr = document.createElement("tr");//tr elem létrehozása
 thead.appendChild(thead_tr);//Hozzárendeljük a theadhez
 
-const country_th = document.createElement("th");//th elem létrehozása
-country_th.innerHTML = header.country;//Megadjuk, hogy mi legyen beleírva a cellába
-thead_tr.appendChild(country_th);//Hozzárendeljük a tr elemhez
-
-const author_th = document.createElement("th");//th elem létrehozása
-author_th.innerHTML = header.author;//Megadjuk, hogy mi legyen beleírva a cellába
-thead_tr.appendChild(author_th);//Hozzárendeljük a tr elemhez
-
-const work_th = document.createElement("th");//th elem létrehozása
-work_th.innerHTML = header.work;//Megadjuk, hogy mi legyen beleírva a cellába
-thead_tr.appendChild(work_th);//Hozzárendeljük a tr elemhez
-
+for(const fej of Object.values(header)){//Végigmegyünk a header objektumon
+    const th = document.createElement("th");//th elem létrehozása
+    th.innerHTML = fej;//A cella tartalma az aktuális érték
+    thead_tr.appendChild(th);//Hozzárendeljük a thead_tr-hez
+    }
+}
+createHeader();
 const tbody = document.createElement("tbody");//tbody elem létrehozása
 table.appendChild(tbody);//Hozzárendeljük a table-hüz
 
