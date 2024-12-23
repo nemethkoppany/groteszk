@@ -123,38 +123,23 @@ form.addEventListener("submit",function(e){//eseménykezelő létrehozása
     }
     let valid = true;//Megadjuk a valid értékét
 
-    const countryValue = country.value;//Ezeknek az elemeknek megnézzük az értékeit
-    const author1Value = author1.value;//Ezeknek az elemeknek megnézzük az értékeit
-    const work1Value = work1.value;//Ezeknek az elemeknek megnézzük az értékeit
-    const author2Value = author2.value;//Ezeknek az elemeknek megnézzük az értékeit
-    const work2Value = work2.value;//Ezeknek az elemeknek megnézzük az értékeit
-
-    if(countryValue === ""){//Ha nincs semmi írva a nemzetiséghez
-        const parentElement = country.parentElement;//Bekérjük a parentElementjét a nemzetiségnek
-        const errorPlace = parentElement.querySelector(".error");//megkeressük az error class-al ellátott elemet
-        if(errorPlace != undefined){//Ha az errorPlace létezik, azaz van error classa-al ellátott elem(esetünkben div)
-            errorPlace.innerHTML = "A nemzetiség megadása kötelező"//Akkor adjon neki hibaüzenetet
-        }
-        valid = false;//És legyen a valid értéke false
+    if(!simpleValidation(country, "Az nemzetiség megadása kötelező")){//Ha a simpleValidation = false, akkor írjon ki a megfelelő helyre egy hibaüzenetet
+        valid = false;//és legyen a valid false
     }
-    if(author1Value === ""){//Ha nincs semmi írva a szerzőhöz
-        const parentElement = author1.parentElement;//Bekérjük a parentElementjét a szerzőnek
-        const errorPlace = parentElement.querySelector(".error");//megkeressük az error class-al ellátott elemet
-        if(errorPlace != undefined){//Ha az errorPlace létezik, azaz van error classa-al ellátott elem(esetünkben div)
-            errorPlace.innerHTML = "Az első szerző megadása kötelező"//Akkor adjon neki hibaüzenetet
-        }
-        valid = false;//És legyen a valid értéke false
+    if(!simpleValidation(author1,"A szerző megadása kötelező")){//Ha a simpleValidation = false, akkor írjon ki a megfelelő helyre egy hibaüzenetet
+        valid = false;//és legyen a valid false
     }
-    if(work1Value === ""){//Ha nincs semmi írva a műhöz
-        const parentElement = work1.parentElement;//Bekérjük a parentElementjét a műnek
-        const errorPlace = parentElement.querySelector(".error");//megkeressük az error class-al ellátott elemet
-        if(errorPlace != undefined){//Ha az errorPlace létezik, azaz van error classa-al ellátott elem(esetünkben div)
-            errorPlace.innerHTML = "Az első mű  megadása kötelező"//Akkor adjon neki hibaüzenetet
-        }
-        valid = false;//És legyen a valid értéke false
+    if(!simpleValidation(work1,"A mű megadása kötelező")){//Ha a simpleValidation = false, akkor írjon ki a megfelelő helyre egy hibaüzenetet
+        valid = false;//és legyen a valid false
     }
 
     if(valid){//Ha a valid = true, azaz mindehova van valami írva akkor létrehozza az objektumot
+        const countryValue = country.value;//Ezeknek az elemeknek megnézzük az értékeit
+        const author1Value = author1.value;//Ezeknek az elemeknek megnézzük az értékeit
+        const work1Value = work1.value;//Ezeknek az elemeknek megnézzük az értékeit
+        const author2Value = author2.value;//Ezeknek az elemeknek megnézzük az értékeit
+        const work2Value = work2.value;//Ezeknek az elemeknek megnézzük az értékeit
+
     const Element = {//Új objektum készítése
         country: countryValue,//Az objektum tulajdonságának az értékének a megadása
         author1: author1Value,//Az objektum tulajdonságának az értékének a megadása
@@ -169,3 +154,15 @@ form.addEventListener("submit",function(e){//eseménykezelő létrehozása
 }
 })
 
+function simpleValidation(HTMLElementInput, ErrorMessage){//Új validációs függvény bemeneti értékekkel
+    let valid = true;//A valid értéke true
+    if(HTMLElementInput.value.trim() === ""){//Ha nincs az aktuális mezőbe semmi írva
+        const parentElement = HTMLElementInput.parentElement;//Bekérjük a parentElementjét a műnek
+        const errorPlace = parentElement.querySelector(".error");//megkeressük az error class-al ellátott elemet
+        if(errorPlace != undefined){//Ha az errorPlace létezik, azaz van error classa-al ellátott elem(esetünkben div)
+            errorPlace.innerHTML = ErrorMessage//Akkor adjon neki hibaüzenetet
+        }
+        valid = false;//És legyen a valid értéke false
+    }
+    return valid;//Térjen vissza a validdal
+}
