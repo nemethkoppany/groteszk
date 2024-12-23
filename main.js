@@ -68,8 +68,8 @@ createHeader();
 const tbody = document.createElement("tbody");//tbody elem létrehozása
 table.appendChild(tbody);//Hozzárendeljük a table-hüz
 
-function createTable(){//táblagenerálós függvény
-    for(const currentElement of groteszkArray){//Végigmegyünk a tömbbön
+function createTable(array){//táblagenerálós függvény paraméterrel
+    for(const currentElement of array){//Végigmegyünk a tömbbön
         const tbody_tr = document.createElement("tr");//Létrehozunk egy tr elemet
         tbody.appendChild(tbody_tr);//Hozzárendeljük a tbody-hoz
 
@@ -101,7 +101,7 @@ function createTable(){//táblagenerálós függvény
         }
     }
 }
-createTable();//meghívjuk a függvényt
+createTable(groteszkArray);//meghívjuk a függvényt
 
 const form = document.getElementById("form");//form elem bekérése id alapján
 form.addEventListener("submit",function(e){//eseménykezelő létrehozása
@@ -136,7 +136,7 @@ form.addEventListener("submit",function(e){//eseménykezelő létrehozása
     groteszkArray.push(Element);//Tömbhöz adás
     tbody.innerHTML = "";//Kitöröljük a tbody tartalmát
     Form.reset();//Az űrlapot nullázza le ha minden megfelelt
-    createTable();//Meghívjuk a függvényt
+    createTable(groteszkArray);//Meghívjuk a függvényt
 }
 })
 
