@@ -121,31 +121,7 @@ form.addEventListener("submit",function(e){//eseménykezelő létrehozása
     for(const error of errorClass){//Végigmegyünk ezeken az elemeken
         error.innerHTML = "";//És lenullázzuk a tartalmát
     }
-    let valid = true;//Megadjuk a valid értékét
-
-    if(!simpleValidation(country, "Az nemzetiség megadása kötelező")){//Ha a simpleValidation = false, akkor írjon ki a megfelelő helyre egy hibaüzenetet
-        valid = false;//és legyen a valid false
-    }
-    if(!simpleValidation(author1,"A szerző megadása kötelező")){//Ha a simpleValidation = false, akkor írjon ki a megfelelő helyre egy hibaüzenetet
-        valid = false;//és legyen a valid false
-    }
-    if(!simpleValidation(work1,"A mű megadása kötelező")){//Ha a simpleValidation = false, akkor írjon ki a megfelelő helyre egy hibaüzenetet
-        valid = false;//és legyen a valid false
-    }
-
-    if((author2.value === "" && work2.value !== "")||(author2.value !== "" && work2.value === "")){//Hogyha az egyik mezőbe van valami írva, de amásikba nem vagy a fordítottja
-        if(!author2.value){//Ha az aithor2-höz nincs semmi írva
-            simpleValidation(author2,"Minden műhöz tartozik szerző");//Akkor írja ki hozzá a hibaüzenetet
-            
-        }
-        if(!work2.value){//Ha a work2-höz nincs semmi írva
-            simpleValidation(work2,"Minden szerzőhöz  tartozik mű");//Akkor ahhoz írja ki a hibaüzenetet
-           
-        }
-        valid = false;//Ha bármelyik feltétel érvényesül automatikusan hamis lesz a valid
-    }
-
-    if(valid){//Ha a valid = true, azaz mindehova van valami írva akkor létrehozza az objektumot
+    if(simpleValidationInPractice(country,author1,work1)&&complexValidation(author2,work2)){//Ha a valid = true, azaz mindehova van valami írva akkor létrehozza az objektumot
         const countryValue = country.value;//Ezeknek az elemeknek megnézzük az értékeit
         const author1Value = author1.value;//Ezeknek az elemeknek megnézzük az értékeit
         const work1Value = work1.value;//Ezeknek az elemeknek megnézzük az értékeit
@@ -178,4 +154,33 @@ function simpleValidation(HTMLElementInput, ErrorMessage){//Új validációs fü
         valid = false;//És legyen a valid értéke false
     }
     return valid;//Térjen vissza a validdal
+}
+
+function simpleValidationInPractice(country,author1,work1){//Az egyszerű validációt kiszervezzük egy függvénybe paraméterekkel
+    let valid = true;//A valid értéke true
+    if(!simpleValidation(country, "Az nemzetiség megadása kötelező")){//Ha a simpleValidation = false, akkor írjon ki a megfelelő helyre egy hibaüzenetet
+        valid = false;//és legyen a valid false
+    }
+    if(!simpleValidation(author1,"A szerző megadása kötelező")){//Ha a simpleValidation = false, akkor írjon ki a megfelelő helyre egy hibaüzenetet
+        valid = false;//és legyen a valid false
+    }
+    if(!simpleValidation(work1,"A mű megadása kötelező")){//Ha a simpleValidation = false, akkor írjon ki a megfelelő helyre egy hibaüzenetet
+        valid = false;//és legyen a valid false
+    }
+    return valid;//Térjen vissza a validdal
+}
+function complexValidation(author2,work2){//Az összetett validációt kiszervezzük egy függvénybe paraméterekkel
+    let valid = true;//A valid értéke true
+    if((author2.value === "" && work2.value !== "")||(author2.value !== "" && work2.value === "")){//Hogyha az egyik mezőbe van valami írva, de amásikba nem vagy a fordítottja
+        if(!author2.value){//Ha az aithor2-höz nincs semmi írva
+            simpleValidation(author2,"Minden műhöz tartozik szerző");//Akkor írja ki hozzá a hibaüzenetet
+            
+        }
+        if(!work2.value){//Ha a work2-höz nincs semmi írva
+            simpleValidation(work2,"Minden szerzőhöz  tartozik mű");//Akkor ahhoz írja ki a hibaüzenetet
+           
+        }
+        valid = false;//Ha bármelyik feltétel érvényesül automatikusan hamis lesz a valid
+    }
+    return valid;//térjen vissza validdal
 }
